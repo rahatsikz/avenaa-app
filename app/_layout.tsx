@@ -1,29 +1,38 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { PortalHost } from "@rn-primitives/portal";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Stack } from "expo-router";
+import "../global.css";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
+import { useColorScheme, View } from "react-native";
+
+import { ToastContainer } from "../components/shared/toast";
+import { cn } from "../lib/utils";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+  useEffect(() => {
+    const hide = async () => {
+      // fake wait to simulate loading
+      await new Promise((res) => setTimeout(res, 1000));
+      await SplashScreen.hideAsync();
+    };
+    hide();
+  }, []);
+  // src/queryClient.ts
 
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
+  const queryClient = new QueryClient();
+  const scheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <View className={cn(scheme === "dark" ? "dark" : "", "flex-1")}>
+      <QueryClientProvider client={queryClient}>
+        <Stack screenOptions={{ headerShown: false }} />
+        <PortalHost />
+        <ToastContainer />
+      </QueryClientProvider>
+    </View>
   );
 }

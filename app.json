@@ -1,20 +1,23 @@
 {
   "expo": {
-    "name": "avenaa-app",
-    "slug": "avenaa-app",
-    "version": "1.0.0",
+    "name": "avenaa",
+    "slug": "avenaa",
+    "version": "2.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "avenaaapp",
+    "icon": "./assets/images/avenaa-gpt.png",
+    "scheme": "avenaaa",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "package": "com.avenaa",
+      "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/avenaa-gpt.png",
+        "backgroundColor": "#ffffff",
+        "titleBarHidden": true
       },
       "edgeToEdgeEnabled": true
     },
@@ -28,15 +31,22 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/avenaa-gpt.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#ffffff",
+          "titleBarHidden": true
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "522cfe54-f895-4224-8400-43ac0e365cc9"
+      }
     }
   }
 }
